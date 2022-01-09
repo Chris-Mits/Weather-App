@@ -42,6 +42,7 @@ const updateCity = async (cityname) => {
 };
 
 cityForm.addEventListener('submit', e => {
+	// Prevent default action (=refresh)
 	e.preventDefault();
 	
 	// Get city name value
@@ -52,4 +53,13 @@ cityForm.addEventListener('submit', e => {
 	updateCity(cityname)
 		.then(data => updateUI(data))
 		.catch(error => console.log(error));
+		
+	// Set local storage
+	localStorage.setItem('location', cityname);
 });
+
+if(localStorage.getItem('location')) {
+	updateCity(localStorage.getItem('location'))
+		.then(data => updateUI(data))
+		.catch(error => console.log(error));
+}
